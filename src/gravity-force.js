@@ -7,7 +7,7 @@ const G = Symbol();
 export default class GravityForce extends Force {
     constructor() {
         super();
-        this[G] = new Vector(0, 1);
+        this[G] = new Vector(0, 20);
     }
 
     f(pointState) {

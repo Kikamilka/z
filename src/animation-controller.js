@@ -2,8 +2,7 @@ import animate from "animate";
 
 const ANIMATABLES_LIST = Symbol();
 const STARTED = Symbol();
-export
-default class AnimationController {
+export default class AnimationController {
     constructor() {
         this[ANIMATABLES_LIST] = [];
         this[STARTED] = false;
