@@ -13,9 +13,9 @@
     "MVC"
   ],
   "scripts": {
-    "dev": "npm-run-all lint jade less --parallel watchify http-server",
+    "dev": "npm-run-all jade less --parallel watchify http-server",
     "build": "npm-run-all lint jade less browserify",
-    "test": "npm-run-all lint karma",
+    "test": "npm-run-all karma",
     "lint": "eslint src test",
     "jade": "jade --path src/index-page/index-page.jade < src/index-page/index-page.jade > index.html",
     "less": "lessc src/index-page/index-page.less dist/build.css",

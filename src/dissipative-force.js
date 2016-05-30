@@ -1,5 +1,20 @@
 /**
  * TODO Implement DissipativeForce = -k*velocity
  */
-export default class DissipativeForce {
+import Force from "force";
+const K = Symbol();
+
+export default class DissipativeForce extends Force {
+    constructor(k = 10) {
+        super();
+        this[K] = k;
+    }
+
+    get k() {
+        return this[K];
+    }
+
+    f(pointState) {
+        return pointState.velocity.mul((-1) * this.k);
+    }
 }
