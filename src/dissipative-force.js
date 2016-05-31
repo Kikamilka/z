@@ -15,6 +15,6 @@ export default class DissipativeForce extends Force {
     }
 
     f(pointState) {
-        return pointState.velocity.mul((-1) * this.k);
+        return pointState.velocity.mul(-this.k);
     }
 }
