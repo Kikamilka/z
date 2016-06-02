@@ -9,24 +9,27 @@ import GravityForce from "gravity-force";
 chai.config.includeStack = true;
 var sinon = require("sinon");
 
-describe("Draw canvas view", function () {
+describe("Canvas based view", function () {
+	let pointsSystem;
+	let springForce;
 
-	it("should draw ", function () {
-		let canvas = document.createElement("canvas");
-		let pointStateA = new PointState(new Point(20)),
-			pointStateB = new PointState(new Point(), new Vector(0, 100));
-		let springAB = new SpringForce(new Point(20), new Point());
-		let gravityForce = new GravityForce();
-		let pointsSystem = new PointsSystem([pointStateA, pointStateB],
-			[springAB, gravityForce]);
-		let canvasBasedView = new CanvasBasedView(canvas, pointsSystem);
+	beforeEach(function () {
+		let pointA = new Point();
+		let pointB = new Point(20);
+    springForce = new SpringForce(pointA, pointB);
+		pointsSystem = new PointsSystem([new PointState(pointA), 
+			new PointState(pointB, new Vector(0, 100))], [springForce]);		
+	});
 
-		var obj = {canvas: canvasBasedView.canvas,
-			pointsSystem: canvasBasedView.pointsSystem,
-			draw: canvasBasedView.draw};
-		let mock = sinon.mock(obj);
-		mock.expects("draw").once();
-		obj.draw();
+	it("Canvas based view should draw", function () {
+		let canv = document.createElement("canvas");
+		let canvasBasedView = new CanvasBasedView(canv, pointsSystem);
+		let ctx = canv.getContext("2d");
+		let mock = sinon.mock(ctx);
+		mock.expects("fillRect").once();		
+		mock.expects("arc").twice();
+		mock.expects("moveTo").once();
+		canvasBasedView.draw();
 		mock.verify();
 	});
 });

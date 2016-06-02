@@ -6,16 +6,19 @@ import PointState from "point-state";
 chai.config.includeStack = true;
 var sinon = require("sinon");
 
-describe("Draw point", function () {
+describe("View point", function () {
+	let pointState;
 
-	it("should draw point", function () {
-    let pointState = new PointState(new Point(), new Vector(100, -20));
-		var obj = {canvas: document.createElement("canvas"),
-			draw: drawPoint};
-		let mock = sinon.mock(obj);
-		let ctx = obj.canvas.getContext("2d");
-		mock.expects("draw").withArgs(ctx, pointState).once();
-		obj.draw(ctx, pointState);
+	beforeEach(function () {
+		pointState = new PointState(new Point(), new Vector(100, -20));
+	});
+	
+	it("View point should draw point", function () {		
+		let canv = document.createElement("canvas");
+		let ctx = canv.getContext("2d");
+		let mock = sinon.mock(ctx);
+		mock.expects("stroke").withArgs().once();
+		drawPoint(ctx, canv, pointState);
 		mock.verify();
 	});
 });

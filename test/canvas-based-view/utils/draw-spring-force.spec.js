@@ -1,20 +1,30 @@
 import drawSpringForce from "draw-spring-force";
 import SpringForce from "spring-force";
 import Point from "point";
+import PointState from "point-state";
+import PointsSystem from "points-system";
+import Vector from "vector";
 
 chai.config.includeStack = true;
 var sinon = require("sinon");
 
-describe("Draw Spring force", function () {
+describe("View spring force", function () {
+	let pointsSystem;
+	let springForce;
 
-	it("should draw spring force", function () {
-    let springForce = new SpringForce(new Point(20), new Point(5));
-		var obj = {canvas: document.createElement("canvas"),
-			draw: drawSpringForce};
-		let mock = sinon.mock(obj);
-		let ctx = obj.canvas.getContext("2d");
-		mock.expects("draw").withArgs(ctx, springForce).once();
-		obj.draw(ctx, springForce);
+	beforeEach(function () {
+		let pointA = new Point();
+		let pointB = new Point(20);
+    springForce = new SpringForce(pointA, pointB);
+		pointsSystem = new PointsSystem([new PointState(pointA), 
+			new PointState(pointB, new Vector(0, 100))], [springForce]);
+	});
+
+	it("View spring force should draw spring force", function () {		
+		let ctx = document.createElement("canvas").getContext("2d");
+		let mock = sinon.mock(ctx);
+		mock.expects("moveTo").once();
+		drawSpringForce(ctx, pointsSystem, springForce);
 		mock.verify();
 	});
 });
