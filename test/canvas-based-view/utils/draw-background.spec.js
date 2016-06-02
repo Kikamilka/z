@@ -1,7 +1,7 @@
 import drawBackground from "draw-background";
+import sinon from "sinon";
 
 chai.config.includeStack = true;
-var sinon = require("sinon");
 
 describe("View background", function () {
 

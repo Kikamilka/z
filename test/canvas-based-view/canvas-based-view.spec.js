@@ -4,10 +4,9 @@ import Point from "point";
 import PointState from "point-state";
 import PointsSystem from "points-system";
 import SpringForce from "spring-force";
-import GravityForce from "gravity-force";
+import sinon from "sinon";
 
 chai.config.includeStack = true;
-var sinon = require("sinon");
 
 describe("Canvas based view", function () {
 	let pointsSystem;
@@ -17,8 +16,8 @@ describe("Canvas based view", function () {
 		let pointA = new Point();
 		let pointB = new Point(20);
     springForce = new SpringForce(pointA, pointB);
-		pointsSystem = new PointsSystem([new PointState(pointA), 
-			new PointState(pointB, new Vector(0, 100))], [springForce]);		
+		pointsSystem = new PointsSystem([new PointState(pointA),
+			new PointState(pointB, new Vector(0, 100))], [springForce]);
 	});
 
 	it("Canvas based view should draw", function () {
@@ -26,7 +25,7 @@ describe("Canvas based view", function () {
 		let canvasBasedView = new CanvasBasedView(canv, pointsSystem);
 		let ctx = canv.getContext("2d");
 		let mock = sinon.mock(ctx);
-		mock.expects("fillRect").once();		
+		mock.expects("fillRect").once();
 		mock.expects("arc").twice();
 		mock.expects("moveTo").once();
 		canvasBasedView.draw();
