@@ -1,17 +1,16 @@
 import drawBackground from "draw-background";
+import sinon from "sinon";
 
 chai.config.includeStack = true;
-var sinon = require("sinon");
 
-describe("Draw background", function () {
+describe("View background", function () {
 
-	it("should draw background", function () {
-		var obj = {canvas: document.createElement("canvas"),
-		draw: drawBackground};
-		let mock = sinon.mock(obj);
-		let ctx = obj.canvas.getContext("2d");
-		mock.expects("draw").withArgs(ctx).once();
-		obj.draw(ctx);
+	it("View background should draw background", function () {
+		let canv = document.createElement("canvas");
+		let ctx = canv.getContext("2d");
+		let mock = sinon.mock(ctx);
+		mock.expects("fillRect").withArgs(0, 0, canv.width, canv.height).once();
+		drawBackground(ctx, canv);
 		mock.verify();
 	});
 });
