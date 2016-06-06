@@ -46,6 +46,7 @@
     "chai-spies": "^0.7.1",
     "cross-env": "^1.0.7",
     "eslint": "^1.10.3",
+    "events": "^1.1.0",
     "http-server": "^0.8.5",
     "jade": "^1.11.0",
     "karma": "^0.13.19",
